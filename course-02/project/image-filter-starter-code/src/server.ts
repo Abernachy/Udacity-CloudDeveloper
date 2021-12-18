@@ -15,7 +15,7 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util'
 	// GET /filteredimage?image_url={{URL}}
 	app.get('/filteredimage', async (req, res) => {
 		// has to begin with 'https://' or 'http://'
-		const { image_url } = req.query
+		const { image_url }: { image_url: string } = req.query
 
 		try {
 			if (
@@ -23,8 +23,8 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util'
 				(image_url.includes('https://') && image_url.includes('.jpg')) ||
 				image_url.includes('.png')
 			) {
-				const filteredPath = await filterImageFromURL(image_url)
-				console.log(filteredPath)
+				const filteredPath: string = await filterImageFromURL(image_url)
+
 				res.status(200).sendFile(filteredPath)
 				setTimeout(() => deleteLocalFiles([filteredPath]), 3000)
 			} else {
