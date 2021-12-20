@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import bodyParser from 'body-parser'
 import { filterImageFromURL, deleteLocalFiles } from './util/util'
 ;(async () => {
@@ -13,9 +13,10 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util'
 
 	// @TODO1 IMPLEMENT A RESTFUL ENDPOINT
 	// GET /filteredimage?image_url={{URL}}
-	app.get('/filteredimage', async (req, res) => {
+
+	app.get('/filteredimage', async (req: Request, res: Response) => {
 		// has to begin with 'https://' or 'http://'
-		const { image_url }: { image_url: string } = req.query
+		const image_url = req.query.image_url as string
 
 		try {
 			if (
@@ -52,7 +53,7 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util'
 
 	// Root Endpoint
 	// Displays a simple message to the user
-	app.get('/', async (req, res) => {
+	app.get('/', async (req: Request, res: Response) => {
 		res.send('try GET /filteredimage?image_url={{}}')
 	})
 
